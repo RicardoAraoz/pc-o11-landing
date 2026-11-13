@@ -64,6 +64,8 @@
   .prep i { display: block; width: 120px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, .14); overflow: hidden; }
   .prep i b { display: block; height: 100%; width: 0; background: var(--led); transition: width .2s linear; }
   .prep.ok { opacity: 0; }
+  /* Intro sobre la secuencia (solo celular): título encima de la misma PC; se desvanece al deslizar */
+  .intro { display: none; }
 
   /* Cierre */
   .end { min-height: 80svh; display: grid; place-items: center; text-align: center; padding: 64px 16px; border-top: 1px solid var(--line); }
@@ -82,15 +84,18 @@
   .specs span { color: var(--muted); font-size: 13px; }
   footer { padding: 28px calc(16px + var(--safe-r)) calc(40px + var(--safe-b)) calc(16px + var(--safe-l)); text-align: center; color: var(--muted); font-size: 12px; line-height: 1.6; border-top: 1px solid var(--line); }
 
-  /* Celular: el producto arriba y grande, el texto abajo; portada con la PC armada de fondo */
+  /* Celular: una sola escena. La portada separada se oculta y el título va encima del canvas, sobre la misma PC
+     que luego se desarma (antes la PC salía dos veces y la portada terminaba con un corte recto). */
   @media (max-width: 760px) {
-    .hero { place-items: start center; padding: calc(17svh + var(--safe-t)) calc(20px + var(--safe-r)) 0 calc(20px + var(--safe-l));
-            background: linear-gradient(#000 30%, rgba(0, 0, 0, 0) 52%),
-                        url("frames/m/0000.webp") -49vw calc(64svh - 114vw) / 165vw auto no-repeat, #000; }
-    /* la PC armada (centro medido en 60 %, 39 % del cuadro) queda centrada al 64 % de la altura de la portada */
-    .hero h1 { font-size: clamp(46px, 13.5vw, 64px); }
-    .hero p { font-size: 17px; max-width: 30ch; margin-left: auto; margin-right: auto; }
-    .hint { bottom: calc(24px + var(--safe-b)); }
+    .hero { display: none; }
+    .intro { display: flex; flex-direction: column; align-items: center; position: absolute; inset: 0; z-index: 2;
+             padding: calc(11svh + var(--safe-t)) calc(20px + var(--safe-r)) 0 calc(20px + var(--safe-l));
+             text-align: center; pointer-events: none; will-change: opacity, transform; }
+    .intro h1 { font-size: clamp(46px, 13.5vw, 64px); font-weight: 700; letter-spacing: -.035em; line-height: .95;
+                text-shadow: 0 2px 24px rgba(0, 0, 0, .8); }
+    .intro h1 span { color: var(--led); }
+    .intro p { margin-top: 14px; font-size: 17px; color: var(--muted); font-weight: 500; max-width: 30ch; }
+    .intro .hint { bottom: calc(24px + var(--safe-b)); }
     .seq { height: 560vh; }
     .copy, .copy.l, .copy.r { left: calc(20px + var(--safe-l)); right: calc(20px + var(--safe-r)); width: auto; top: auto;
                               bottom: calc(6svh + var(--safe-b)); text-align: left; transform: translateY(14px); }
@@ -124,6 +129,12 @@
 <section class="seq" id="seq" aria-label="Secuencia de despiece">
   <div class="stage">
     <canvas id="cv" aria-hidden="true"></canvas>
+    <div class="intro" id="intro">
+      <h1>229 piezas.<br><span>Una sola luz.</span></h1>
+      <p>Una PC gamer, armada y desarmada en 3D.</p>
+      <div class="prep" id="prep2" aria-hidden="true"><i><b id="prepbar2"></b></i><span id="preptxt2">Cargando 0%</span></div>
+      <div class="hint">Desliza</div>
+    </div>
     <div class="load" id="load"></div>
     <div class="bar" id="bar"></div>
     <!-- data-a/data-b: rango de progreso del scroll (0-1) en que se muestra cada bloque -->
@@ -201,6 +212,11 @@
   const prep = document.getElementById('prep');
   const prepbar = document.getElementById('prepbar');
   const preptxt = document.getElementById('preptxt');
+  const intro = document.getElementById('intro');
+  const prep2 = document.getElementById('prep2');
+  const prepbar2 = document.getElementById('prepbar2');
+  const preptxt2 = document.getElementById('preptxt2');
+  let pNow = 0;
   const copies = [...document.querySelectorAll('.copy')];
   const mqSmall = matchMedia('(max-width: 760px)');
   // Celular = pantalla angosta, sin importar la densidad de píxeles (antes un iPhone con DPR 3 recibía los
@@ -224,6 +240,9 @@
     prepbar.style.width = pct + '%';
     preptxt.textContent = loaded < N ? 'Cargando ' + pct + '%' : 'Listo';
     prep.classList.toggle('ok', loaded >= N);
+    prepbar2.style.width = pct + '%';
+    preptxt2.textContent = preptxt.textContent;
+    prep2.classList.toggle('ok', loaded >= N);
   }
 
   function iniciar() {
@@ -289,7 +308,10 @@
     const z = mix(1.6, 1.0, e), fx = mix(0.60, 0.555, e), fy = mix(0.39, 0.37, e);
     const s = (W / im.width) * z;
     const w = im.width * s, h = im.height * s;
-    const x0 = W / 2 - fx * w, y0 = H * 0.36 - fy * h;
+    // intro: con el título encima, la PC está más abajo (58 % de la altura) y sube a su lugar (36 %) en el
+    // primer 5 % del scroll, mientras el título se desvanece
+    const k = ease(Math.max(0, 1 - pNow / 0.05));
+    const x0 = W / 2 - fx * w, y0 = H * mix(0.36, 0.58, k) - fy * h;
     ctx.drawImage(im, x0, y0, w, h);
     // bordes del cuadro fundidos a negro (sin costuras visibles arriba o abajo)
     const f = 60 * (W / cv.clientWidth);
@@ -314,6 +336,14 @@
   function update() {
     ticking = false;
     const p = progress();
+    const subio = (p < 0.06) !== (pNow < 0.06) || p < 0.06;
+    pNow = p;
+    if (small) {
+      const k = Math.min(1, p / 0.04);
+      intro.style.opacity = String(1 - k);
+      intro.style.transform = 'translateY(' + (-40 * k) + 'px)';
+    }
+    if (small && subio) cur = -1;                       // fuerza redibujo: la PC se mueve aunque el cuadro no cambie
     // 0-0.74: se desarma · 0.74-0.8: flota · 0.8-1: se vuelve a armar
     const t = p < .74 ? p / .74 : p < .8 ? 1 : 1 - (p - .8) / .2;
     want = Math.round(t * (N - 1));
