@@ -5,8 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>229 piezas · PC O11</title>
 <meta name="description" content="Concepto de fan: una PC gamer armada pieza por pieza, en 3D hecho con código.">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<link rel="preload" as="image" href="frames/m/0000.webp" media="(max-width: 760px)">
 <style>
   :root {
+    color-scheme: dark;
+    --safe-t: env(safe-area-inset-top, 0px);
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-l: env(safe-area-inset-left, 0px);
+    --safe-r: env(safe-area-inset-right, 0px);
     --bg: #000;
     --ink: #f4f4f6;
     --muted: #9a9aa6;
@@ -47,8 +55,15 @@
              letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
   .copy .n small { font-size: .45em; color: var(--muted); font-weight: 600; margin-left: 4px; }
   .est { color: var(--led); }
-  .bar { position: absolute; left: 0; bottom: 0; height: 2px; background: var(--led); width: 0; opacity: .7; }
-  .load { position: absolute; right: 16px; top: 16px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .bar { position: absolute; left: 0; bottom: var(--safe-b); height: 2px; background: var(--led); width: 0; opacity: .7; }
+  .load { position: absolute; right: calc(16px + var(--safe-r)); top: calc(16px + var(--safe-t)); font-size: 12px;
+          color: var(--muted); font-variant-numeric: tabular-nums; }
+  /* aviso de carga en la portada: el usuario ve que algo llega antes de deslizar */
+  .prep { margin-top: 22px; display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted);
+          font-variant-numeric: tabular-nums; transition: opacity .4s ease; }
+  .prep i { display: block; width: 120px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, .14); overflow: hidden; }
+  .prep i b { display: block; height: 100%; width: 0; background: var(--led); transition: width .2s linear; }
+  .prep.ok { opacity: 0; }
 
   /* Cierre */
   .end { min-height: 80svh; display: grid; place-items: center; text-align: center; padding: 64px 16px; border-top: 1px solid var(--line); }
@@ -65,14 +80,26 @@
   .specs div { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
   .specs b { display: block; font-size: 22px; letter-spacing: -.01em; }
   .specs span { color: var(--muted); font-size: 13px; }
-  footer { padding: 28px 16px 40px; text-align: center; color: var(--muted); font-size: 12px; line-height: 1.6; border-top: 1px solid var(--line); }
+  footer { padding: 28px calc(16px + var(--safe-r)) calc(40px + var(--safe-b)) calc(16px + var(--safe-l)); text-align: center; color: var(--muted); font-size: 12px; line-height: 1.6; border-top: 1px solid var(--line); }
 
-  /* Celular: el texto pasa abajo del producto */
+  /* Celular: el producto arriba y grande, el texto abajo; portada con la PC armada de fondo */
   @media (max-width: 760px) {
-    .copy, .copy.l, .copy.r { left: 16px; right: 16px; width: auto; top: auto; bottom: 7svh; text-align: left;
-                              transform: translateY(18px); }
+    .hero { place-items: start center; padding: calc(17svh + var(--safe-t)) calc(20px + var(--safe-r)) 0 calc(20px + var(--safe-l));
+            background: linear-gradient(#000 30%, rgba(0, 0, 0, 0) 52%),
+                        url("frames/m/0000.webp") -49vw calc(64svh - 114vw) / 165vw auto no-repeat, #000; }
+    /* la PC armada (centro medido en 60 %, 39 % del cuadro) queda centrada al 64 % de la altura de la portada */
+    .hero h1 { font-size: clamp(46px, 13.5vw, 64px); }
+    .hero p { font-size: 17px; max-width: 30ch; margin-left: auto; margin-right: auto; }
+    .hint { bottom: calc(24px + var(--safe-b)); }
+    .seq { height: 560vh; }
+    .copy, .copy.l, .copy.r { left: calc(20px + var(--safe-l)); right: calc(20px + var(--safe-r)); width: auto; top: auto;
+                              bottom: calc(6svh + var(--safe-b)); text-align: left; transform: translateY(14px); }
     .copy.on { transform: none; }
-    .copy p { font-size: 15px; }
+    .copy::before { inset: -48px -40px; background: radial-gradient(closest-side, rgba(0, 0, 0, .88), rgba(0, 0, 0, .6) 60%, rgba(0, 0, 0, 0)); }
+    .copy p { font-size: 16px; line-height: 1.5; }
+    .copy .n { font-size: 34px; }
+    .end { padding: 56px calc(20px + var(--safe-r)) 56px calc(20px + var(--safe-l)); }
+    .btn { padding: 15px 28px; min-height: 48px; }
   }
   /* Sin animación: cuadros clave estáticos */
   .static { display: none; }
@@ -89,6 +116,7 @@
   <div>
     <h1>229 piezas.<br><span>Una sola luz.</span></h1>
     <p>Una PC gamer, armada y desarmada en 3D.</p>
+    <div class="prep" id="prep" role="status" aria-live="polite"><i><b id="prepbar"></b></i><span id="preptxt">Cargando 0%</span></div>
   </div>
   <div class="hint">Desliza</div>
 </section>
@@ -170,32 +198,54 @@
   const seq = document.getElementById('seq');
   const bar = document.getElementById('bar');
   const load = document.getElementById('load');
+  const prep = document.getElementById('prep');
+  const prepbar = document.getElementById('prepbar');
+  const preptxt = document.getElementById('preptxt');
   const copies = [...document.querySelectorAll('.copy')];
-  const small = matchMedia('(max-width: 760px)').matches && devicePixelRatio <= 2;
-  const dir = small ? 'frames/m/' : 'frames/';
-  const imgs = new Array(N);
-  let loaded = 0, cur = -1, want = 0, ticking = false;
+  const mqSmall = matchMedia('(max-width: 760px)');
+  // Celular = pantalla angosta, sin importar la densidad de píxeles (antes un iPhone con DPR 3 recibía los
+  // cuadros de escritorio y el producto se veía diminuto).
+  let small, dir, imgs, loaded, q, gen = 0;
+  let cur = -1, want = 0, ticking = false;
 
   // Precarga progresiva: cuadro 0, luego cada 10.º, luego el resto
-  const order = [0];
-  for (let i = 10; i < N; i += 10) order.push(i);
-  for (let i = 1; i < N; i++) if (i % 10) order.push(i);
-  order.push(N - 1);
-  const seen = new Set();
-  let q = order.filter(i => !seen.has(i) && seen.add(i));
+  const ORDER = (() => {
+    const o = [0];
+    for (let i = 10; i < N; i += 10) o.push(i);
+    for (let i = 1; i < N; i++) if (i % 10) o.push(i);
+    o.push(N - 1);
+    const seen = new Set();
+    return o.filter(i => !seen.has(i) && seen.add(i));
+  })();
 
-  function fetchOne() {
-    const i = q.shift();
-    if (i === undefined) return;
-    const im = new Image();
-    im.src = dir + String(i).padStart(4, '0') + '.webp';
-    im.decode().then(() => {
-      imgs[i] = im; loaded++;
-      load.textContent = loaded < N ? Math.round(100 * loaded / N) + '%' : '';
-      if (i === want || cur === -1) draw(true);
-    }).catch(() => {}).finally(fetchOne);
+  function progreso() {
+    const pct = Math.round(100 * loaded / N);
+    load.textContent = loaded < N ? pct + '%' : '';
+    prepbar.style.width = pct + '%';
+    preptxt.textContent = loaded < N ? 'Cargando ' + pct + '%' : 'Listo';
+    prep.classList.toggle('ok', loaded >= N);
   }
-  for (let k = 0; k < 6; k++) fetchOne();
+
+  function iniciar() {
+    small = mqSmall.matches;
+    dir = small ? 'frames/m/' : 'frames/';
+    imgs = new Array(N); loaded = 0; q = ORDER.slice(); gen++;
+    progreso();
+    const g = gen;
+    function fetchOne() {
+      const i = q.shift();
+      if (i === undefined || g !== gen) return;
+      const im = new Image();
+      im.src = dir + String(i).padStart(4, '0') + '.webp';
+      im.decode().then(() => {
+        if (g !== gen) return;
+        imgs[i] = im; loaded++;
+        progreso();
+        if (i === want || cur === -1) draw(true);
+      }).catch(() => {}).finally(fetchOne);
+    }
+    for (let k = 0; k < 6; k++) fetchOne();
+  }
 
   function nearest(i) {
     if (imgs[i]) return imgs[i];
@@ -207,11 +257,16 @@
   }
 
   function size() {
-    const r = devicePixelRatio || 1;
+    const r = Math.min(devicePixelRatio || 1, 2.5);     // tope: más resolución de canvas no agrega detalle
     cv.width = Math.round(cv.clientWidth * r);
     cv.height = Math.round(cv.clientHeight * r);
+    ctx.imageSmoothingQuality = 'high';
+    if (mqSmall.matches !== small) iniciar();          // giro del teléfono: cambia el juego de cuadros
     cur = -1; draw(true);
   }
+
+  const ease = x => x * x * (3 - 2 * x);
+  const mix = (a, b, k) => a + (b - a) * k;
 
   function draw(force) {
     if (!force && want === cur) return;
@@ -219,12 +274,35 @@
     if (!im) return;
     cur = want;
     const W = cv.width, H = cv.height;
-    // escritorio: "contain" con un leve zoom; celular: cuadros verticales propios, ajustados al ancho y
-    // alineados arriba (en pantallas más altas que 9:16 sobra espacio abajo, donde va el texto)
-    const s = small ? W / im.width : Math.min(W / im.width, H / im.height) * 1.08;
-    const w = im.width * s, h = im.height * s;
     ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
-    ctx.drawImage(im, (W - w) / 2, small ? 0 : (H - h) / 2, w, h);
+    if (!small) {
+      // escritorio: "contain" con un leve zoom
+      const s = Math.min(W / im.width, H / im.height) * 1.08;
+      const w = im.width * s, h = im.height * s;
+      ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
+      return;
+    }
+    // celular: cámara virtual que sigue al producto. Armado: acerca 1.6x para que llene la pantalla;
+    // desarmado: se abre a 1.0x para que quepan todas las piezas. El centro del producto queda al 36 % de
+    // la altura, arriba del bloque de texto. (Centros medidos en los cuadros de frames/m/.)
+    const e = ease(Math.min(1, cur / (N - 1)));
+    const z = mix(1.6, 1.0, e), fx = mix(0.60, 0.555, e), fy = mix(0.39, 0.37, e);
+    const s = (W / im.width) * z;
+    const w = im.width * s, h = im.height * s;
+    const x0 = W / 2 - fx * w, y0 = H * 0.36 - fy * h;
+    ctx.drawImage(im, x0, y0, w, h);
+    // bordes del cuadro fundidos a negro (sin costuras visibles arriba o abajo)
+    const f = 60 * (W / cv.clientWidth);
+    if (y0 > 0) {
+      const g = ctx.createLinearGradient(0, y0, 0, y0 + f);
+      g.addColorStop(0, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, y0, W, f);
+    }
+    if (y0 + h < H) {
+      const g = ctx.createLinearGradient(0, y0 + h - f, 0, y0 + h);
+      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, '#000');
+      ctx.fillStyle = g; ctx.fillRect(0, y0 + h - f, W, f);
+    }
   }
 
   function progress() {
@@ -247,7 +325,7 @@
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', size);
   document.getElementById('again').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
-  size(); update();
+  iniciar(); size(); update();
 })();
 </script>
 </body>
