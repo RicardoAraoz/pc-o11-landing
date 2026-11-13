@@ -6,6 +6,20 @@
 <title>229 piezas · PC O11</title>
 <meta name="description" content="Concepto de fan: una PC gamer armada pieza por pieza, en 3D hecho con código.">
 <meta name="theme-color" content="#000000">
+<link rel="icon" href="img/icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/og.jpg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="229 piezas. Una sola luz.">
+<meta property="og:description" content="Una PC gamer armada y desarmada en 3D, pieza por pieza. Concepto de fan hecho con código.">
+<meta property="og:url" content="https://ricardoaraoz.github.io/pc-o11-landing/">
+<meta property="og:image" content="https://ricardoaraoz.github.io/pc-o11-landing/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_MX">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="229 piezas. Una sola luz.">
+<meta name="twitter:description" content="Una PC gamer armada y desarmada en 3D, pieza por pieza.">
+<meta name="twitter:image" content="https://ricardoaraoz.github.io/pc-o11-landing/img/og.jpg">
 <meta name="color-scheme" content="dark">
 <link rel="preload" as="image" href="frames/m/0000.webp" media="(max-width: 760px)">
 <style>
@@ -106,6 +120,141 @@
     .end { padding: 56px calc(20px + var(--safe-r)) 56px calc(20px + var(--safe-l)); }
     .btn { padding: 15px 28px; min-height: 48px; }
   }
+  /* ===== v2: secciones nuevas ===== */
+  .sec { padding: 96px calc(20px + var(--safe-r)) 96px calc(20px + var(--safe-l)); border-top: 1px solid var(--line); scroll-margin-top: 56px; }
+  .sec > header { max-width: 1100px; margin: 0 auto 36px; }
+  .sec .k { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--led); font-weight: 600; }
+  .sec h2 { font-size: clamp(32px, 5vw, 56px); font-weight: 700; letter-spacing: -.03em; line-height: 1.02; margin-top: 10px; }
+  .sec header p { color: var(--muted); font-size: 17px; line-height: 1.5; margin-top: 12px; max-width: 60ch; }
+
+  /* Video de la película */
+  .reproductor { position: relative; max-width: 1100px; margin: 0 auto; border-radius: 18px; overflow: hidden;
+                 background: #000; aspect-ratio: 16 / 9; border: 1px solid var(--line); }
+  .reproductor video { width: 100%; height: 100%; display: block; object-fit: cover; background: #000; }
+  .play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; cursor: pointer; color: var(--ink);
+          background: linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,.55)); font: inherit; }
+  .play span { display: inline-flex; align-items: center; gap: 12px; padding: 14px 22px 14px 16px; border-radius: 999px;
+               background: rgba(255,255,255,.12); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+               border: 1px solid rgba(255,255,255,.22); font-weight: 600; font-size: 16px; min-height: 52px; }
+  .play svg { width: 24px; height: 24px; }
+  .play:focus-visible span { outline: 2px solid var(--led); outline-offset: 3px; }
+  .reproductor.vivo .play { display: none; }
+  .nota { max-width: 1100px; margin: 12px auto 0; color: var(--muted); font-size: 13px; }
+
+  /* Ficha técnica */
+  .ficha { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+  .ficha article { border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; background: rgba(255,255,255,.02); }
+  .ficha .c { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .ficha h3 { font-size: 19px; font-weight: 650; letter-spacing: -.01em; margin: 6px 0 4px; line-height: 1.25; }
+  .ficha .d { font-size: 15px; color: var(--ink); font-variant-numeric: tabular-nums; opacity: .86; }
+  .ficha .f { display: inline-block; margin-top: 12px; font-size: 12px; padding: 4px 10px; border-radius: 999px; font-weight: 600;
+              border: 1px solid var(--line); color: var(--muted); }
+  .ficha .f.real { color: #9fe3b8; border-color: rgba(159,227,184,.35); }
+  .ficha .f.foto { color: var(--led); border-color: rgba(199,189,255,.35); }
+  .ficha .f.est { color: #f3cf8a; border-color: rgba(243,207,138,.35); }
+  .ficha .pz { float: right; font-size: 12px; color: var(--muted); margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+  /* Cómo se hizo */
+  .etapas { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .etapas figure { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #050505; }
+  .etapas img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+  .etapas figcaption { padding: 12px 14px 14px; font-size: 14px; color: var(--muted); line-height: 1.4; }
+  .etapas figcaption b { display: block; color: var(--ink); font-size: 15px; margin-bottom: 2px; }
+  .comparar { position: relative; max-width: 1100px; margin: 28px auto 0; border-radius: 18px; overflow: hidden;
+              border: 1px solid var(--line); aspect-ratio: 16 / 9; background: #000; --pos: 50%; user-select: none; touch-action: pan-y; }
+  .comparar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .comparar .despues { clip-path: inset(0 0 0 var(--pos)); }
+  .comparar .linea { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: var(--ink); pointer-events: none; }
+  .comparar .linea::after { content: ""; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px;
+                            border-radius: 50%; background: var(--ink); box-shadow: 0 2px 16px rgba(0,0,0,.5); }
+  .comparar .et { position: absolute; top: 14px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+                  padding: 6px 10px; border-radius: 999px; background: rgba(0,0,0,.6); pointer-events: none; }
+  .comparar .et.a { left: 14px; } .comparar .et.b { right: 14px; color: var(--led); }
+  .comparar input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+  .comparar input:focus-visible + .linea { box-shadow: 0 0 0 3px var(--led); }
+
+  /* Cierre con la vista explotada en bucle de fondo */
+  .end { position: relative; overflow: hidden; }
+  .end .fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42; pointer-events: none; }
+  .end::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+                 background: radial-gradient(70% 60% at 50% 50%, rgba(0,0,0,.55), #000 85%); }
+  .end > div { position: relative; z-index: 2; }
+
+  /* Índice por capítulos */
+  .indice { position: fixed; z-index: 20; right: calc(18px + var(--safe-r)); top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+  .indice.ver { opacity: 1; pointer-events: auto; }
+  .indice a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; min-height: 30px; color: var(--muted);
+              text-decoration: none; font-size: 13px; font-weight: 500; }
+  .indice a span { opacity: 0; transform: translateX(6px); transition: opacity .2s ease, transform .2s ease; white-space: nowrap;
+                   background: rgba(0,0,0,.7); padding: 3px 8px; border-radius: 6px; }
+  .indice a i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.3); flex: none; transition: transform .2s ease, background .2s ease; }
+  .indice a:hover span, .indice a:focus-visible span { opacity: 1; transform: none; }   /* en escritorio solo al pasar el mouse: el texto de la derecha no se tapa */
+  .indice a.on { color: var(--ink); } .indice a.on i { background: var(--led); transform: scale(1.5); }
+  .indice a:focus-visible { outline: 2px solid var(--led); outline-offset: 2px; border-radius: 6px; }
+
+  /* Puntos interactivos sobre la PC */
+  .puntos { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+  .punto { position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; border: 0; padding: 0;
+           background: none; cursor: pointer; pointer-events: auto; opacity: 0; transition: opacity .3s ease; }
+  .punto.ver { opacity: 1; } .punto:not(.ver) { pointer-events: none; }
+  .punto::before { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
+                   background: var(--ink); box-shadow: 0 0 0 4px rgba(199,189,255,.45), 0 0 18px rgba(199,189,255,.9); }
+  .punto::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
+                  border: 2px solid var(--led); animation: pulso 2.2s ease-out infinite; }
+  .punto:focus-visible { outline: 2px solid var(--led); outline-offset: 2px; border-radius: 50%; }
+  .punto[aria-expanded="true"]::before { background: var(--led); }
+  @keyframes pulso { from { transform: scale(1); opacity: .9; } to { transform: scale(2.8); opacity: 0; } }
+  .tarjeta { position: absolute; z-index: 4; width: min(280px, calc(100vw - 32px)); padding: 14px 16px 14px; border-radius: 14px;
+             background: rgba(12,12,16,.92); border: 1px solid rgba(255,255,255,.14); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+             box-shadow: 0 12px 40px rgba(0,0,0,.6); opacity: 0; transform: translateY(6px); pointer-events: none;
+             transition: opacity .18s ease, transform .18s ease; }
+  .tarjeta.ver { opacity: 1; transform: none; pointer-events: auto; }
+  .tarjeta .k { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--led); font-weight: 600; }
+  .tarjeta h3 { font-size: 18px; margin: 4px 0 6px; letter-spacing: -.01em; }
+  .tarjeta p { font-size: 14px; line-height: 1.45; color: var(--muted); }
+  .tarjeta .pz { margin-top: 8px; font-size: 13px; color: var(--ink); opacity: .8; }
+  .tarjeta button { position: absolute; top: 4px; right: 4px; width: 40px; height: 40px; border: 0; background: none; color: var(--muted);
+                    font-size: 22px; cursor: pointer; border-radius: 10px; }
+  .tarjeta button:focus-visible { outline: 2px solid var(--led); }
+  .ayuda { position: absolute; z-index: 3; left: 50%; top: calc(14px + var(--safe-t)); transform: translateX(-50%); font-size: 12px;
+           color: var(--muted); background: rgba(0,0,0,.6); padding: 6px 12px; border-radius: 999px; opacity: 0; transition: opacity .3s ease;
+           pointer-events: none; white-space: nowrap; }
+  .ayuda.ver { opacity: 1; }
+
+  /* Botón de sonido */
+  .sonido { position: fixed; z-index: 30; left: calc(16px + var(--safe-l)); bottom: calc(16px + var(--safe-b)); width: 48px; height: 48px;
+            border-radius: 50%; border: 1px solid rgba(255,255,255,.18); background: rgba(10,10,14,.75); color: var(--ink);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: grid; place-items: center; cursor: pointer; }
+  .sonido svg { width: 22px; height: 22px; }
+  .sonido .on { display: none; } .sonido[aria-pressed="true"] .on { display: block; } .sonido[aria-pressed="true"] .off { display: none; }
+  .sonido[aria-pressed="true"] { border-color: rgba(199,189,255,.6); color: var(--led); }
+  .sonido:focus-visible { outline: 2px solid var(--led); outline-offset: 3px; }
+
+  @media (max-width: 760px) {
+    .sec { padding-top: 72px; padding-bottom: 72px; }
+    .etapas { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory;
+              padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+    .etapas figure { scroll-snap-align: start; }
+    .comparar { aspect-ratio: 4 / 5; }
+    .reproductor { border-radius: 14px; }
+    /* índice en celular: fila de chips arriba, deslizable */
+    .indice { top: calc(10px + var(--safe-t)); right: 0; left: 0; transform: none; flex-direction: row; gap: 6px; overflow-x: auto;
+              padding: 0 calc(16px + var(--safe-r)) 0 calc(16px + var(--safe-l)); scrollbar-width: none; }
+    .indice::-webkit-scrollbar { display: none; }
+    .indice a { flex: none; min-height: 36px; padding: 0 12px; border-radius: 999px; background: rgba(10,10,14,.72);
+                border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .indice a span { opacity: 1; transform: none; background: none; padding: 0; }
+    .indice a i { display: none; }
+    .indice a.on { border-color: rgba(199,189,255,.6); color: var(--led); }
+    .ayuda { top: calc(56px + var(--safe-t)); }
+    .sonido { bottom: auto; top: calc(10px + var(--safe-t)); left: auto; right: calc(12px + var(--safe-r)); width: 44px; height: 44px; }
+    .indice { right: calc(64px + var(--safe-r)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .punto::after { animation: none; }
+    .end .fondo { display: none; }
+  }
   /* Sin animación: cuadros clave estáticos */
   .static { display: none; }
   @media (prefers-reduced-motion: reduce) {
@@ -135,45 +284,114 @@
       <div class="prep" id="prep2" aria-hidden="true"><i><b id="prepbar2"></b></i><span id="preptxt2">Cargando 0%</span></div>
       <div class="hint">Desliza</div>
     </div>
+    <div class="puntos" id="puntos" aria-label="Puntos interactivos de la PC"></div>
+    <div class="tarjeta" id="tarjeta" role="dialog" aria-modal="false" aria-labelledby="tarjeta-t">
+      <button type="button" id="tarjeta-x" aria-label="Cerrar">×</button>
+      <div class="k" id="tarjeta-k"></div><h3 id="tarjeta-t"></h3><p id="tarjeta-p"></p><div class="pz" id="tarjeta-pz"></div>
+    </div>
+    <div class="ayuda" id="ayuda">Toca los puntos para ver cada pieza</div>
     <div class="load" id="load"></div>
     <div class="bar" id="bar"></div>
     <!-- data-a/data-b: rango de progreso del scroll (0-1) en que se muestra cada bloque -->
-    <div class="copy l" data-a=".05" data-b=".14">
+    <div class="copy l" data-id="gabinete" data-nombre="Gabinete" data-a=".05" data-b=".14">
       <div class="k">Gabinete</div><h2>Doble cámara, dos vidrios.</h2>
       <p>Vidrio templado en el frente y el costado, sin poste en la esquina.</p>
       <span class="n">445<small>mm de fondo</small></span>
     </div>
-    <div class="copy r" data-a=".15" data-b=".24">
+    <div class="copy r" data-id="ventiladores" data-nombre="Ventiladores" data-a=".15" data-b=".24">
       <div class="k">Ventiladores</div><h2>Nueve anillos de luz.</h2>
       <p>Tres arriba, tres al costado, tres abajo. Cada uno con 34 LEDs en cuatro anillos.</p>
       <span class="n">9 × 120<small>mm</small></span>
     </div>
-    <div class="copy l" data-a=".25" data-b=".34">
+    <div class="copy l" data-id="grafica" data-nombre="Gráfica" data-a=".25" data-b=".34">
       <div class="k">Tarjeta gráfica</div><h2>RTX 4080.</h2>
       <p>Diseño Founders de tres ranuras, horizontal sobre la placa.</p>
       <span class="n">304 × 137<small>mm</small></span>
     </div>
-    <div class="copy r" data-a=".35" data-b=".44">
+    <div class="copy r" data-id="refrigeracion" data-nombre="Refrigeración" data-a=".35" data-b=".44">
       <div class="k">Refrigeración líquida</div><h2>Radiador de 360.</h2>
       <p>Bomba sobre el procesador, mangueras malladas y radiador bajo la tapa.</p>
       <span class="n">397 × 120<small>× 27 mm</small></span>
     </div>
-    <div class="copy l" data-a=".45" data-b=".53">
+    <div class="copy l" data-id="memoria" data-nombre="Memoria" data-a=".45" data-b=".53">
       <div class="k">Memoria</div><h2>32 GB DDR5.</h2>
       <p>Dos módulos de 16 GB con barra de luz.</p>
       <span class="n">56<small>mm de alto</small></span>
     </div>
-    <div class="copy r" data-a=".54" data-b=".62">
+    <div class="copy r" data-id="placa" data-nombre="Placa y CPU" data-a=".54" data-b=".62">
       <div class="k">Placa madre y CPU</div><h2>Z790 · Intel Core i9<span class="est">*</span></h2>
       <p>ATX con cinco ranuras M.2 y PCIe 5.0. Socket LGA1700.</p>
       <span class="n">305 × 244<small>mm</small></span>
     </div>
-    <div class="copy l" data-a=".63" data-b=".71">
+    <div class="copy l" data-id="energia" data-nombre="Energía" data-a=".63" data-b=".71">
       <div class="k">Energía y almacenamiento</div><h2>1000 W · 1 TB NVMe<span class="est">*</span></h2>
       <p>Fuente 80 Plus Gold con ventilador de 135 mm. SSD M.2 2280 bajo su disipador.</p>
       <span class="n">1000<small>W</small></span>
     </div>
   </div>
+</section>
+
+<nav class="indice" id="indice" aria-label="Capítulos"></nav>
+
+<button class="sonido" id="sonido" type="button" aria-pressed="false" aria-label="Activar sonido">
+  <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+  <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+</button>
+
+<section class="sec" id="video" aria-labelledby="video-t">
+  <header>
+    <div class="k">La película</div>
+    <h2 id="video-t">Míralo armarse.</h2>
+    <p>Treinta segundos: las 229 piezas llegan una por una, en el orden real de armado, hasta que la PC se enciende.</p>
+  </header>
+  <div class="reproductor" id="reproductor">
+    <video id="pelicula" playsinline preload="none" poster="img/poster_pelicula.webp" aria-label="Película de ensamblaje, 30 segundos"></video>
+    <button class="play" id="play" type="button" aria-label="Reproducir la película con sonido">
+      <span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Reproducir · 0:30</span>
+    </button>
+  </div>
+  <p class="nota">Con sonido. En celular se carga una versión más ligera (720p).</p>
+</section>
+
+<section class="sec" id="ficha" aria-labelledby="ficha-t">
+  <header>
+    <div class="k">Ficha técnica</div>
+    <h2 id="ficha-t">Qué lleva dentro.</h2>
+    <p>Los nueve componentes, con su medida clave y cuántas piezas lleva cada uno.</p>
+  </header>
+  <div class="ficha">
+    <article><span class="pz">30 piezas</span><div class="c">Gabinete</div><h3>Lian Li PC-O11 Dynamic</h3><div class="d">272 × 446 × 445 mm · dos vidrios</div></article>
+    <article><span class="pz">39 piezas</span><div class="c">Placa madre</div><h3>ASUS ROG Maximus Z790 Dark Hero</h3><div class="d">ATX 305 × 244 mm · 5 M.2 · PCIe 5.0</div></article>
+    <article><span class="pz">2 piezas</span><div class="c">Procesador</div><h3>Intel Core i9-14900K</h3><div class="d">Socket LGA1700</div></article>
+    <article><span class="pz">16 piezas</span><div class="c">Tarjeta gráfica</div><h3>NVIDIA GeForce RTX 4080 Founders Edition</h3><div class="d">304 × 137 × 61 mm · tres ranuras</div></article>
+    <article><span class="pz">8 piezas</span><div class="c">Memoria</div><h3>2 × 16 GB Corsair Dominator Platinum RGB DDR5</h3><div class="d">56 mm de alto · 12 LEDs por módulo</div></article>
+    <article><span class="pz">29 piezas</span><div class="c">Refrigeración líquida</div><h3>Corsair iCUE H150i Elite Capellix 360</h3><div class="d">Radiador 397 × 120 × 27 mm</div></article>
+    <article><span class="pz">72 piezas</span><div class="c">Ventiladores</div><h3>9 × Corsair iCUE QL120 RGB</h3><div class="d">120 × 120 × 25 mm · 34 LEDs cada uno</div></article>
+    <article><span class="pz">9 piezas</span><div class="c">Fuente de poder</div><h3>ASUS ROG Strix 1000W Gold Aura</h3><div class="d">180 × 150 × 86 mm · ventilador de 135 mm</div></article>
+    <article><span class="pz">6 piezas</span><div class="c">Almacenamiento</div><h3>Samsung 990 Pro 1 TB</h3><div class="d">M.2 2280 · bajo el disipador de la placa</div></article>
+  </div>
+</section>
+
+<section class="sec" id="como" aria-labelledby="como-t">
+  <header>
+    <div class="k">Cómo se hizo</div>
+    <h2 id="como-t">Todo en código.</h2>
+    <p>Sin modelos descargados: cada pieza se construye con Python dentro de Blender y se renderiza con Cycles. Cuatro etapas:</p>
+  </header>
+  <div class="etapas">
+    <figure><img src="img/mo_01_blockout.webp" alt="Etapa 1: cajas a escala real" loading="lazy" width="1200" height="675"><figcaption><b>1 · Bloques</b>Cajas a escala real, una por pieza, para cuadrar medidas.</figcaption></figure>
+    <figure><img src="img/mo_02_piezas.webp" alt="Etapa 2: las 229 piezas modeladas" loading="lazy" width="1200" height="675"><figcaption><b>2 · Piezas</b>Las 229 mallas, con su nombre, conjunto y orden de armado.</figcaption></figure>
+    <figure><img src="img/mo_03_materiales.webp" alt="Etapa 3: materiales" loading="lazy" width="1200" height="675"><figcaption><b>3 · Materiales</b>Metal, vidrio y plástico procedurales; los LEDs se encienden por pieza.</figcaption></figure>
+    <figure><img src="img/mo_04_luz.webp" alt="Etapa 4: luz de estudio" loading="lazy" width="1200" height="675"><figcaption><b>4 · Luz</b>Softboxes, contraluz y piso con reflejo, como en un estudio.</figcaption></figure>
+  </div>
+  <div class="comparar" id="comparar">
+    <img src="img/antes.webp" alt="Antes de las mejoras" loading="lazy">
+    <img class="despues" src="img/despues.webp" alt="Después de las mejoras" loading="lazy">
+    <span class="et a">Antes</span><span class="et b">Después</span>
+    <input type="range" min="0" max="100" value="50" id="comparar-r" aria-label="Comparar antes y después de las mejoras">
+    <span class="linea" aria-hidden="true"></span>
+  </div>
+  <p class="nota">Desliza para comparar la primera versión con la final: GPU Founders, aspas translúcidas, RAM con 12 LEDs y placa con pantalla de códigos.</p>
 </section>
 
 <section class="static" aria-label="Cuadros clave">
@@ -182,7 +400,8 @@
   <img src="frames/0149.webp" alt="La PC desarmada por completo" loading="lazy">
 </section>
 
-<section class="end">
+<section class="end" id="cierre">
+  <video class="fondo" id="loop" muted loop playsinline preload="none" poster="img/poster_explotada.webp" aria-hidden="true"></video>
   <div>
     <h2>Todo vuelve a su lugar.</h2>
     <p>229 piezas modeladas a escala real, todo en código.</p>
@@ -284,6 +503,11 @@
     cur = -1; draw(true);
   }
 
+  // la escena dibujada (en px CSS) para los puntos interactivos: cuadro actual y dónde quedó la imagen
+  function avisar(x0, y0, w, h) {
+    const r = cv.width / cv.clientWidth;
+    window.dispatchEvent(new CustomEvent('escena', { detail: { cuadro: cur, small, x0: x0 / r, y0: y0 / r, w: w / r, h: h / r } }));
+  }
   const ease = x => x * x * (3 - 2 * x);
   const mix = (a, b, k) => a + (b - a) * k;
 
@@ -299,6 +523,7 @@
       const s = Math.min(W / im.width, H / im.height) * 1.08;
       const w = im.width * s, h = im.height * s;
       ctx.drawImage(im, (W - w) / 2, (H - h) / 2, w, h);
+      avisar((W - w) / 2, (H - h) / 2, w, h);
       return;
     }
     // celular: cámara virtual que sigue al producto. Armado: acerca 1.6x para que llene la pantalla;
@@ -313,6 +538,7 @@
     const k = ease(Math.max(0, 1 - pNow / 0.05));
     const x0 = W / 2 - fx * w, y0 = H * mix(0.36, 0.58, k) - fy * h;
     ctx.drawImage(im, x0, y0, w, h);
+    avisar(x0, y0, w, h);
     // bordes del cuadro fundidos a negro (sin costuras visibles arriba o abajo)
     const f = 60 * (W / cv.clientWidth);
     if (y0 > 0) {
@@ -350,12 +576,185 @@
     draw(false);
     bar.style.width = (p * 100) + '%';
     for (const c of copies) c.classList.toggle('on', p >= +c.dataset.a && p <= +c.dataset.b);
+    window.dispatchEvent(new CustomEvent('progreso', { detail: { p, cuadro: want } }));
   }
 
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', size);
   document.getElementById('again').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
   iniciar(); size(); update();
+})();
+</script>
+<script>
+/* v2: índice por capítulos, puntos interactivos, película, bucle del cierre, comparador y sonido */
+(() => {
+  const $ = id => document.getElementById(id);
+  const seq = $('seq');
+  const copies = [...document.querySelectorAll('.copy[data-id]')];
+  const mqSmall = matchMedia('(max-width: 760px)');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let pNow = 0;
+
+  /* ---------- sonido (apagado por defecto) ---------- */
+  const btnSon = $('sonido');
+  let sonido = false, musica = null;
+  const encajes = [];
+  function encaje() {
+    if (!sonido) return;
+    let a = encajes.find(x => x.paused || x.ended);
+    if (!a) { a = new Audio('audio/encaje.mp3'); a.volume = .45; encajes.push(a); }
+    a.currentTime = 0; a.play().catch(() => {});
+  }
+  function ponerSonido(on) {
+    sonido = on;
+    btnSon.setAttribute('aria-pressed', String(on));
+    btnSon.setAttribute('aria-label', on ? 'Silenciar sonido' : 'Activar sonido');
+    if (on) {
+      if (!musica) { musica = new Audio('audio/musica.mp3'); musica.loop = true; musica.volume = .32; }
+      if (!$('pelicula').paused) return;
+      musica.play().catch(() => {});
+    } else if (musica) musica.pause();
+  }
+  btnSon.addEventListener('click', () => ponerSonido(!sonido));
+
+  /* ---------- índice por capítulos ---------- */
+  const indice = $('indice');
+  const secciones = [{ id: 'video', nombre: 'Película' }, { id: 'ficha', nombre: 'Ficha' }, { id: 'como', nombre: 'Cómo se hizo' }];
+  const items = [];
+  const pDe = c => (+c.dataset.a + +c.dataset.b) / 2;
+  const yDe = p => seq.offsetTop + p * (seq.offsetHeight - innerHeight);
+  for (const c of copies) items.push({ id: c.dataset.id, nombre: c.dataset.nombre, y: () => yDe(pDe(c)), copy: c });
+  for (const sct of secciones) items.push({ id: sct.id, nombre: sct.nombre, y: () => $(sct.id).offsetTop - 40, el: $(sct.id) });
+  for (const it of items) {
+    const a = document.createElement('a');
+    a.href = '#' + it.id; a.innerHTML = '<span></span><i aria-hidden="true"></i>'; a.querySelector('span').textContent = it.nombre;
+    a.addEventListener('click', e => { e.preventDefault(); ir(it, true); });
+    it.a = a; indice.appendChild(a);
+  }
+  function ir(it, suave) {
+    scrollTo({ top: it.y(), behavior: suave && !reduce ? 'smooth' : 'auto' });
+    history.replaceState(null, '', '#' + it.id);
+  }
+  let activo = null;
+  function marcar() {
+    let act = null;
+    for (const it of items) {
+      if (it.copy && it.copy.classList.contains('on')) act = it;
+      if (it.el) { const r = it.el.getBoundingClientRect(); if (r.top < innerHeight * .45 && r.bottom > innerHeight * .45) act = it; }
+    }
+    if (act !== activo) {
+      if (activo) { activo.a.classList.remove('on'); activo.a.removeAttribute('aria-current'); }
+      activo = act;
+      if (act) {
+        act.a.classList.add('on'); act.a.setAttribute('aria-current', 'true');
+        if (mqSmall.matches) act.a.scrollIntoView({ block: 'nearest', inline: 'center' });
+        if (act.copy) encaje();
+        history.replaceState(null, '', '#' + act.id);
+      }
+    }
+    const fin = $('cierre').getBoundingClientRect().top < innerHeight * .6;
+    const inicio = scrollY < seq.offsetTop + (seq.offsetHeight - innerHeight) * .04;
+    indice.classList.toggle('ver', !inicio && !fin);
+  }
+  addEventListener('scroll', () => requestAnimationFrame(marcar), { passive: true });
+  // enlace directo: #grafica, #ficha, etc.
+  addEventListener('load', () => {
+    const it = items.find(x => '#' + x.id === location.hash);
+    if (it) setTimeout(() => ir(it, false), 60);
+    marcar();
+  });
+
+  /* ---------- puntos interactivos ---------- */
+  const INFO = {
+    'Tarjeta gráfica': { t: 'RTX 4080 Founders', p: 'Tres ranuras, marco plateado en X y aletas visibles entre los dos ventiladores.', pz: '16 piezas · 304 × 137 × 61 mm' },
+    'Refrigeración líquida': { t: 'Bomba del AIO 360', p: 'Tapa con anillo de luz sobre el procesador; dos mangueras al radiador de la tapa.', pz: '29 piezas · radiador 397 × 120 mm' },
+    'Ventiladores': { t: '9 × QL120 RGB', p: 'Tres arriba, tres al costado y tres abajo; aspas translúcidas que dejan pasar la luz.', pz: '72 piezas · 34 LEDs cada uno' },
+    'Memoria RAM': { t: '32 GB DDR5', p: 'Dos módulos Dominator Platinum con 12 LEDs individuales en la barra de luz.', pz: '8 piezas · 56 mm de alto' },
+    'Placa madre': { t: 'Z790 Dark Hero', p: 'ATX con pantalla de códigos de arranque, cinco M.2 y PCIe 5.0.', pz: '39 piezas · 305 × 244 mm' }
+  };
+  const capa = $('puntos'), tarjeta = $('tarjeta'), ayuda = $('ayuda');
+  let datos = { d: null, m: null }, botones = {}, escena = null, abierto = null, ayudaVista = false;
+  async function cargar(m) {
+    const k = m ? 'm' : 'd';
+    if (!datos[k]) { try { datos[k] = await (await fetch(m ? 'data/puntos_m.json' : 'data/puntos.json')).json(); } catch (e) { datos[k] = { grupos: {} }; } }
+    return datos[k];
+  }
+  for (const g of Object.keys(INFO)) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'punto'; b.setAttribute('aria-label', g + ': ver detalle'); b.setAttribute('aria-expanded', 'false');
+    b.addEventListener('click', e => { e.stopPropagation(); abierto === g ? cerrar() : abrir(g); });
+    capa.appendChild(b); botones[g] = b;
+  }
+  function posDe(g) {
+    const d = datos[escena.small ? 'm' : 'd'];
+    const v = d && d.grupos[g] && d.grupos[g].xy[escena.cuadro];
+    if (!v) return null;
+    return [escena.x0 + v[0] * escena.w, escena.y0 + v[1] * escena.h];
+  }
+  function colocar() {
+    if (!escena) return;
+    const ver = escena.cuadro >= 45 && pNow > .06 && pNow < .9;
+    const textos = [...document.querySelectorAll('.copy.on')].map(c => c.getBoundingClientRect());   // un punto no queda bajo el texto
+    for (const [g, b] of Object.entries(botones)) {
+      const xy = posDe(g);
+      const tapado = textos.some(r => xy && xy[0] > r.left - 24 && xy[0] < r.right + 24 && xy[1] > r.top - 24 && xy[1] < r.bottom + 24);
+      const ok = ver && xy && !tapado && xy[0] > 24 && xy[0] < innerWidth - 24 && xy[1] > 70 && xy[1] < innerHeight * (mqSmall.matches ? .62 : .92);
+      b.classList.toggle('ver', !!ok);
+      if (xy) b.style.transform = `translate(${xy[0]}px, ${xy[1]}px)`;
+    }
+    if (ver && !ayudaVista) { ayudaVista = true; ayuda.classList.add('ver'); setTimeout(() => ayuda.classList.remove('ver'), 4500); }
+    if (abierto) { if (!botones[abierto].classList.contains('ver')) cerrar(); else ubicarTarjeta(); }
+  }
+  function ubicarTarjeta() {
+    const xy = posDe(abierto); if (!xy) return;
+    const tw = tarjeta.offsetWidth, th = tarjeta.offsetHeight;
+    let x = Math.min(innerWidth - tw - 16, Math.max(16, xy[0] - tw / 2));
+    let y = xy[1] - th - 22; if (y < 64) y = xy[1] + 26;
+    tarjeta.style.left = x + 'px'; tarjeta.style.top = y + 'px';
+  }
+  function abrir(g) {
+    if (abierto) botones[abierto].setAttribute('aria-expanded', 'false');
+    abierto = g; const i = INFO[g];
+    $('tarjeta-k').textContent = g; $('tarjeta-t').textContent = i.t; $('tarjeta-p').textContent = i.p; $('tarjeta-pz').textContent = i.pz;
+    botones[g].setAttribute('aria-expanded', 'true');
+    tarjeta.classList.add('ver'); ubicarTarjeta(); ayuda.classList.remove('ver'); encaje();
+  }
+  function cerrar() {
+    if (!abierto) return;
+    botones[abierto].setAttribute('aria-expanded', 'false'); abierto = null; tarjeta.classList.remove('ver');
+  }
+  $('tarjeta-x').addEventListener('click', cerrar);
+  document.addEventListener('click', e => { if (abierto && !tarjeta.contains(e.target)) cerrar(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
+  addEventListener('escena', async e => { escena = e.detail; await cargar(escena.small); colocar(); });
+  addEventListener('progreso', e => { pNow = e.detail.p; colocar(); });
+
+  /* ---------- película ---------- */
+  const rep = $('reproductor'), vid = $('pelicula');
+  $('play').addEventListener('click', () => {
+    if (!vid.src) {
+      const ligera = mqSmall.matches || (navigator.connection && navigator.connection.saveData);
+      vid.src = ligera ? 'media/pelicula_720.mp4' : 'media/pelicula_1080.mp4';
+      vid.preload = 'auto';
+    }
+    vid.controls = true; rep.classList.add('vivo');
+    vid.play().catch(() => {});
+  });
+  vid.addEventListener('play', () => { if (musica) musica.pause(); });
+  vid.addEventListener('ended', () => { if (sonido && musica) musica.play().catch(() => {}); });
+
+  /* ---------- vista explotada en bucle en el cierre ---------- */
+  const loop = $('loop');
+  if (!reduce && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([en]) => {
+      if (en.isIntersecting) { if (!loop.src) loop.src = 'media/explotada_loop.mp4'; loop.play().catch(() => {}); }
+      else loop.pause();
+    }, { rootMargin: '200px' }).observe($('cierre'));
+  }
+
+  /* ---------- comparador antes / después ---------- */
+  const cmp = $('comparar'), rango = $('comparar-r');
+  rango.addEventListener('input', () => cmp.style.setProperty('--pos', rango.value + '%'));
 })();
 </script>
 </body>
